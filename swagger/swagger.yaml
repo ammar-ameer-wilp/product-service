@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  title: Product Service
+  version: 1.0.0
+paths:
+  /admin/products:
+    post:
+      summary: Create a new product
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Product created
+    put:
+      summary: Bulk import products
+      tags:
+        - Admin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductInput'
+      responses:
+        '200':
+          description: Bulk products imported
+  /products:
+    get:
+      summary: Get list of products with filtering and pagination
+      tags:
+        - Consumer
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: min_price
+          in: query
+          schema: { type: number }
+        - name: max_price
+          in: query
+          schema: { type: number }
+        - name: sort_by
+          in: query
+          schema: { type: string, enum: [name, price] }
+        - name: order
+          in: query
+          schema: { type: string, enum: [asc, desc] }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 10 }
+      responses:
+        '200':
+          description: List of products
+  /products/{id}:
+    get:
+      summary: Get a product by ID
+      tags:
+        - Consumer
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details
+        '404':
+          description: Product not found
+components:
+  schemas:
+    ProductInput:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        sku:
+          type: string
+      required:
+        - name
+        - price
+        - sku
