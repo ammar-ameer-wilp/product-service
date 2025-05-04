@@ -24,13 +24,13 @@ This is a Golang-based Product Service microservice for managing products, built
 
 ```
 product-service/
-├── cmd/                    # Main entry point
+├── cmd/                    
 ├── internal/
-│   ├── db/                 # DB connection
-│   ├── handlers/           # HTTP handlers
-│   └── models/             # Data models
-├── migrations/             # DB migration scripts
-├── swagger/                # API documentation
+│   ├── db/                 
+│   ├── handlers/           
+│   └── models/             
+├── migrations/             
+├── swagger/                
 ├── Dockerfile
 ├── docker-compose.yml
 └── README.md
@@ -47,7 +47,7 @@ product-service/
 
 1. **Clone the repository**
    ```
-   git clone https://github.com/yourusername/product-service.git
+   git clone https://github.com/ammar-ameer-wilp/product-service.git
    cd product-service
    ```
 
@@ -78,13 +78,6 @@ Migrations are automatically run using the SQL file inside `migrations/`.
 ## API Documentation
 
 The Swagger documentation is available in the `swagger/swagger.yaml` file. You can view it locally using a Swagger editor or import it into [https://editor.swagger.io](https://editor.swagger.io).
-
-## Example Endpoints
-
-- `POST /admin/products` - Create a product
-- `PUT /admin/products/bulk` - Bulk import products
-- `GET /products` - Get products (supports search, filter, sort)
-- `GET /products/{id}` - Get product by ID
 
 ## License
 
