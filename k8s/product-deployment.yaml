@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+  labels:
+    app: product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+        - name: product
+          image: product-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: "postgres"
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: "user"
+            - name: DB_PASSWORD
+              value: "password"
+            - name: DB_NAME
+              value: "product_db"
+
