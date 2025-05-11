@@ -11,7 +11,7 @@ import (
 
     "github.com/jmoiron/sqlx"
     "github.com/gorilla/mux"
-    "github.com/yourusername/product-service/internal/models"
+    "product-service/internal/models"
 )
 
 func CreateProductHandler(db *sqlx.DB) http.HandlerFunc {
