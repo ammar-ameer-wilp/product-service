@@ -16,6 +16,7 @@ import (
 
 func CreateProductHandler(db *sqlx.DB) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "application/json")
         var p models.Product
         if err := json.NewDecoder(r.Body).Decode(&p); err != nil {
             http.Error(w, err.Error(), http.StatusBadRequest)
@@ -28,7 +29,6 @@ func CreateProductHandler(db *sqlx.DB) http.HandlerFunc {
             http.Error(w, err.Error(), http.StatusInternalServerError)
             return
         }
-        w.Header().Set("Content-Type", "application/json")
         w.WriteHeader(http.StatusCreated)
     }
 }
@@ -62,6 +62,7 @@ func BulkImportProductsHandler(db *sqlx.DB) http.HandlerFunc {
 
 func GetProductsHandler(db *sqlx.DB) http.HandlerFunc {
     return func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "application/json")
         q := r.URL.Query()
 
         search := q.Get("search")
@@ -119,7 +120,6 @@ func GetProductsHandler(db *sqlx.DB) http.HandlerFunc {
             http.Error(w, err.Error(), http.StatusInternalServerError)
             return
         }
-        w.Header().Set("Content-Type", "application/json")
         json.NewEncoder(w).Encode(products)
     }
 }
