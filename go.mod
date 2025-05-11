@@ -1,4 +1,4 @@
-module github.com/yourusername/product-service
+module product-service
 
 go 1.20
 
