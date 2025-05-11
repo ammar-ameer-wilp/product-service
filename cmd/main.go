@@ -4,10 +4,11 @@ import (
     "log"
     "net/http"
     "os"
+    "fmt"
 
     "github.com/gorilla/mux"
-    "github.com/yourusername/product-service/internal/db"
-    "github.com/yourusername/product-service/internal/handlers"
+    "product-service/internal/db"
+    "product-service/internal/handlers"
 )
 
 func main() {
@@ -15,6 +16,9 @@ func main() {
     defer database.Close()
 
     r := mux.NewRouter()
+    r.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintln(w, "Product service is running")
+    }).Methods("GET")
     r.HandleFunc("/admin/products", handlers.CreateProductHandler(database)).Methods("POST")
     r.HandleFunc("/admin/products/bulk", handlers.BulkImportProductsHandler(database)).Methods("PUT")
     r.HandleFunc("/products", handlers.GetProductsHandler(database)).Methods("GET")
